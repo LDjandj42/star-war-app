@@ -4,7 +4,7 @@
         <mat-label>Le nom du personage</mat-label>
         <input  type="text" formControlName="name" matInput>
         <mat-error *ngIf="characterForm.controls.name.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.name.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.name.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field>
