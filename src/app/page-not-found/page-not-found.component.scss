@@ -1,0 +1,22 @@
+.app-page-not-found{
+    height: calc(100vh - 52px);
+    position: relative;
+    
+    &__link{
+        z-index: 1;
+        position: absolute;
+        bottom: 1rem;
+        background-color: cornsilk;
+        text-decoration: none;
+        padding: 2px;
+
+    }
+    &__title{
+        z-index: 1;
+        position: absolute;
+        bottom: 2rem;
+        background-color: cornsilk;
+        text-align: center;
+    }
+    
+}

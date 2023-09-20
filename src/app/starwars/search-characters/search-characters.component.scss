@@ -1,0 +1,18 @@
+.app-search-characters{
+    position: relative;
+    
+    &__search-list{
+        background-color: cornsilk;
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    }
+
+}

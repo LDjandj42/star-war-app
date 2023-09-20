@@ -1,0 +1,16 @@
+.app-list-personage{
+   &__list{
+    padding: 1rem;
+    }
+
+    &__background-color{
+        background-color: cornsilk;
+    } 
+    &__botton{
+        background-color: cornsilk;
+        padding: 0 1rem 5px 1rem;
+        color: #FFE81F;
+        font-weight: bold;
+    }
+}
+

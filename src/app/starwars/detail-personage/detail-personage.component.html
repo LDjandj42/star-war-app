@@ -1,0 +1,70 @@
+<div *ngIf="characters" class="app-detail-personage" fxLayout="column" fxLayoutAlign="start center">
+    <div>
+    <h2>{{ characters.name }}</h2>
+    <div>
+      <div>
+        <img [src]="characters.picture" width="100" height="150">
+      </div>
+      <div>
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <td>Nom</td>
+                <td><strong>{{ characters.name }}</strong></td>
+              </tr>
+              <tr>
+                <td>couleur de peau</td>
+                <td>
+                  <strong>{{ characters.skin_color}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>couleur de cheveux</td>
+                <td>
+                  <strong>{{ characters.hair_color }}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>couleur des yeux</td>
+                <td>
+                  <strong>{{ characters.eye_color }}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>taille</td>
+                <td>
+                  <strong>{{ characters.height}} CM </strong>
+                </td>
+              </tr>
+              <tr>
+                <td>masse</td>
+                <td>
+                  <strong>{{ characters.mass}} KG</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Date de création</td>
+                <td><em>{{ characters.created | date:"dd/MM/yyyy" }}</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <a (click)="goToStarWarsList ()" class="app-detail-personage__color" fxLayout="column" fxLayoutAlign="start center">Retour</a>
+          <a (click)="goToEditcharacter(characters)" class="app-detail-personage__color"fxLayout="column" fxLayoutAlign="start center">Éditer</a>
+        </div>
+        <div>
+          <a (click)="deletecharacter(characters)" class="app-detail-personage__color" fxLayout="column" fxLayoutAlign="start center">suprimer</a>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+<div fxLayout="column" fxLayoutAlign="start center">
+  <h4  class="app-detail-personage__title" *ngIf='!characters'>Aucun presonage à afficher !
+    <div>
+      <a (click)="goToStarWarsList ()" class="app-detail-personage__link" fxLayout="column" fxLayoutAlign="start center">Retour</a>
+    </div>
+  </h4>
+</div>

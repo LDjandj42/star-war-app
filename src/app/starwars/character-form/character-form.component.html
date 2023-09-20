@@ -1,0 +1,53 @@
+<form class="app-character-form" [formGroup]="characterForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="start stretch">
+
+    <mat-form-field>
+        <mat-label>Le nom du personage</mat-label>
+        <input  type="text" formControlName="name" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>La taille du personage</mat-label>
+        <input  type="number" formControlName="height" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>La masse du personage</mat-label>
+        <input  type="number" formControlName="mass" matInput>
+        <mat-error *ngIf="characterForm.controls.mass.hasError('required')">Ce champ est requis</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>La couleur de cheveux du personage</mat-label>
+        <input type="text" formControlName="hair_color" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>La couleur de peau du personage</mat-label>
+        <input  type="text" formControlName="skin_color" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>La couleur des yeux du personage</mat-label>
+        <input  type="text" formControlName="eye_color" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>L'année de naissance du personage</mat-label>
+        <input type="text" formControlName="birth_year" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Le lien de la planet d'origine du personage</mat-label>
+        <input  type="text" formControlName="homeworld" matInput>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isAddForm">
+        <mat-label>Le lien de l'image du personage</mat-label>
+        <input type="text" formControlName="picture" matInput>
+    </mat-form-field>
+
+    <button type="submit">
+        valider
+    </button>
+</form>
+

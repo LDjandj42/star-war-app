@@ -1,0 +1,12 @@
+<div class="app-search-characters" fxLayout="column" fxLayoutAlign="start center">
+    <input 
+        #searchbox (keyup)="search(searchbox.value)" 
+        placeholder="Rechercher un personage"
+    />
+    <div class="app-search-characters__search-list" fxLayout="column">
+        <a  *ngFor="let characters of characters$ | async" 
+            [routerLink]="'/starwars/'+ characters.id">
+            {{characters.name}}
+        </a>
+    </div>
+</div>

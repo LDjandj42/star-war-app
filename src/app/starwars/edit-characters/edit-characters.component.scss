@@ -1,0 +1,13 @@
+.app-edit-character{
+    position: relative;
+    background-color: cornsilk;
+    margin-bottom: 0;
+    padding: 0 100px 10px ;
+
+    &__link{
+        bottom: 1rem;
+        background-color: cornsilk;
+        text-decoration: none;
+        padding: 10px 380px 0; 
+    }
+}

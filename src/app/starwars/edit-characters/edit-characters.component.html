@@ -1,0 +1,7 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+  <p *ngIf="character" class="center">
+    <img [src]="character.picture">
+  </p>
+  <app-character-form  *ngIf="character" [character]="character"></app-character-form>
+  <a (click)="goToStarWarsList ()" class="app-edit-character__link">retour</a>
+</div>
