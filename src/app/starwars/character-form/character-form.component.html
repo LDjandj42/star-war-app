@@ -11,56 +11,56 @@
         <mat-label>La taille du personage</mat-label>
         <input  type="number" formControlName="height" matInput>
         <mat-error *ngIf="characterForm.controls.height.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.height.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.height.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>La masse du personage</mat-label>
         <input  type="number" formControlName="mass" matInput>
         <mat-error *ngIf="characterForm.controls.mass.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.mass.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.mass.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>La couleur de cheveux du personage</mat-label>
         <input type="text" formControlName="hairColor" matInput>
         <mat-error *ngIf="characterForm.controls.hairColor.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.hairColor.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.hairColor.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>La couleur de peau du personage</mat-label>
         <input  type="text" formControlName="skinColor" matInput>
         <mat-error *ngIf="characterForm.controls.skinColor.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.skinColor.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.skinColor.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>La couleur des yeux du personage</mat-label>
         <input  type="text" formControlName="eyeColor" matInput>
         <mat-error *ngIf="characterForm.controls.eyeColor.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.eyeColor.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.eyeColor.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>L'année de naissance du personage</mat-label>
         <input type="text" formControlName="birthYear" matInput>
         <mat-error *ngIf="characterForm.controls.birthYear.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.birthYear.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.birthYear.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>Le lien de la planet d'origine du personage</mat-label>
         <input  type="text" formControlName="homeworld" matInput>
         <mat-error *ngIf="characterForm.controls.homeworld.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.homeworld.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.homeworld.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <mat-form-field *ngIf="isAddForm">
         <mat-label>Le lien de l'image du personage</mat-label>
         <input type="text" formControlName="picture" matInput>
         <mat-error *ngIf="characterForm.controls.picture.hasError('required')">Ce champ est requis</mat-error>
-        <mat-error *ngIf="characterForm.controls.picture.hasError('pattern')"> Le format du champs est incorect</mat-error>
+        <mat-error *ngIf="characterForm.controls.picture.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
 
     <button type="submit">
