@@ -2,7 +2,8 @@ import { Character } from './../characters';
 import { Router } from '@angular/router';
 import { Component,  Input,  OnInit } from '@angular/core';
 import { StarwarsService } from '../starwars.service';
-
+import { of, map, withLatestFrom } from 'rxjs';
+import { Root, Species } from '../interface';
 
 @Component({
   selector: 'app-list-personage',
@@ -16,11 +17,34 @@ export class ListPersonageComponent implements OnInit {
   starwars: Character[];
   charactersselected: Character|undefined;
   
-  constructor(private router: Router, private charactersservice: StarwarsService ){}
+  constructor(private router: Router, private starwarsService: StarwarsService ){}
 
   ngOnInit(){
-    this.charactersservice.getStarwarsList()
-    .subscribe(characterslist => this.starwars = characterslist);
+    this.starwarsService.getSpeciesList().subscribe((speciesL) => {
+      console.log(speciesL)
+    })
+    // this.starwarsService.getStarwarsList().pipe(
+    //   withLatestFrom(this.starwarsService.getSpeciesList().pipe(
+    //     map((root: Root) => (root.results))
+    //   )),
+    //   map((([characterList, speciesList]: [Character[],Species[]]):Character[] => {
+    //     const characterListToReturn:Character[]= characterList.map((character: Character) => {
+    //       const speciesUrl:string = character.species[0];
+    //       const matchingSpecies:Species = speciesList.find((species: Species) => species.url === speciesUrl);
+    //       return { ...character, speciesName: matchingSpecies?.name };
+    //     });
+    //     console.log(speciesList);
+    //     console.log(characterListToReturn);
+    //     return characterListToReturn;
+    //   }))
+    //   )
+    //   .subscribe((charactersList : any) => {this.starwars = charactersList});
+    
+
+    this.starwarsService.getSpeciesList()
+    .subscribe((speciesList)=> {
+      console.log(speciesList)
+    })
   }
 
 

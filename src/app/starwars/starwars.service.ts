@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Character } from './characters';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, of } from 'rxjs';
+import { Root, Species } from './interface';
 
 
 @Injectable()
@@ -9,7 +10,12 @@ import { Observable, catchError, tap, of } from 'rxjs';
 export class StarwarsService {
 
   constructor(private http: HttpClient){}
-
+  
+  getSpeciesList(): Observable<Root>{
+    return this.http.get<Root>('https://swapi.dev/api/species/').pipe(
+      tap((Response)=> this.log(Response)),
+      catchError((error) =>this.handleError(error, [])));
+  };
   
   getStarwarsList (): Observable <Character[]> {
     return this.http.get<Character[]>('api/characters').pipe(

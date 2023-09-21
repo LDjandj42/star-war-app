@@ -15,7 +15,8 @@ export class Character {
 	created: string;
 	edited: string;
 	url: string;
-	id?: number;
+	id?: number; 
+	speciesName?: string;
 	picture: string;
 
 	constructor(

@@ -11,6 +11,7 @@ import { CharacterFormComponent } from './character-form/character-form.componen
 import { AddCharacterComponent } from './add-character/add-character.component';
 import { MaterialModule } from '../material.module';
 import { EditcharacterComponent } from './edit-characters/edit-characters.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const charactersroutes: Routes = [
@@ -32,6 +33,7 @@ const charactersroutes: Routes = [
     
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

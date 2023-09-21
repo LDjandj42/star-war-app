@@ -3,11 +3,18 @@
     <div fxLayout="row wrap" class="app-list-personage__background-color">
         <div *ngFor="let character of starwars" fxLayout="column" fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100" (click)="goTocharacters(character)" class="app-detail-personage__background-color" fxLayoutAlign="start center">
             <img [src]="character.picture" width="150" height="150">
-            <p>{{ character.name }} : <br/>
-                <small>
-                    Année de naissance : {{ character.birth_year}} <br/> 
-                    <p>Taille: {{character.height}} <br/>  {{character.homeworld}} </p>
-                </small>
+            <p>{{ character.name }} :</p>
+            <p>
+                <small>Année de naissance : {{ character.birth_year}} </small>
+            </p>
+            <p>
+                <small>Taille:{{character.height}}</small>
+            </p>
+            <p>
+                <small>{{character.homeworld}} </small>
+            </p>
+            <p>
+                <small>{{character.speciesName}} </small>
             </p>
         </div>
     </div>

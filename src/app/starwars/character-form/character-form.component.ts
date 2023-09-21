@@ -3,6 +3,7 @@ import { Character } from '../characters';
 import { StarwarsService } from '../starwars.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Species } from '../interface';
 
 @Component({
   selector: 'app-character-form',
@@ -12,6 +13,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class CharacterFormComponent  implements OnInit{
   @Input() character: Character;
   isAddForm: boolean;
+  speciesList: Species[]
   characterForm = this.fb.group({
     name:['',[
       Validators.required,
@@ -64,7 +66,11 @@ export class CharacterFormComponent  implements OnInit{
 
   ngOnInit(): void {
     this.isAddForm = this.router.url.includes('add');
-    
+    this.starwarsService.getSpeciesList()
+    .subscribe((speciesList)=> {
+      console.log(speciesList)
+    })
+
     
   }
 

@@ -46,6 +46,13 @@
         <input type="text" formControlName="picture" matInput>
     </mat-form-field>
 
+    <mat-form-field *ngIf="isAddForm">
+        <mat-label>La race du personage</mat-label>
+        <mat-select>
+
+        </mat-select>
+    </mat-form-field>
+
     <button type="submit">
         valider
     </button>
