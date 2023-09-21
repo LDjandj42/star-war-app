@@ -31,19 +31,19 @@ export class CharacterFormComponent  implements OnInit{
       Validators.min(0),
       Validators.max(999),
     ]),
-    hair_color:['',[
+    hairColor:['',[
       Validators.required,
       Validators.pattern('^[a-zA-Zàéèç]{1,30}$')
     ]],
-    skin_color:['',[
+    skinColor:['',[
       Validators.required,
       Validators.pattern('^[a-zA-Zàéèç]{1,30}$')
     ]],
-    eye_color:['',[
+    eyeColor:['',[
       Validators.required,
       Validators.pattern('^[a-zA-Zàéèç]{1,30}$')
     ]],
-    birth_year:['',[
+    birthYear:['',[
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9àéèç]{1,10}$')
     ]],
@@ -80,10 +80,10 @@ export class CharacterFormComponent  implements OnInit{
       name: this.characterForm.value.name,
       height: this.characterForm.value.height,
       mass: this.characterForm.value.mass,
-      hair_color: this.characterForm.value.hair_color,
-      skin_color: this.characterForm.value.skin_color,
-      eye_color: this.characterForm.value.eye_color,
-      birth_year: this.characterForm.value.birth_year,
+      hair_color: this.characterForm.value.hairColor,
+      skin_color: this.characterForm.value.skinColor,
+      eye_color: this.characterForm.value.eyeColor,
+      birth_year: this.characterForm.value.birthYear,
       homeworld: this.characterForm.value.homeworld,
       picture: this.isAddForm ? this.characterForm.value.picture : this.character.picture
     };
