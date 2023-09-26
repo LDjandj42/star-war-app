@@ -1,4 +1,4 @@
-export interface Root {
+export interface ResponseSpeciesList {
     count: number
     next: string
     previous: any

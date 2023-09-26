@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Character } from './characters';
+import { Character, ResponseCharacterList, } from './characters';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, tap, of } from 'rxjs';
-import { Root, Species } from './interface';
+import { Observable, catchError, tap, of, map, filter } from 'rxjs';
+import { ResponseSpeciesList, Species } from './interface';
 
 
 @Injectable()
@@ -11,36 +11,48 @@ export class StarwarsService {
 
   constructor(private http: HttpClient){}
   
-  getSpeciesList(): Observable<Root>{
-    return this.http.get<Root>('https://swapi.dev/api/species/').pipe(
-      tap((Response)=> this.log(Response)),
+  getSpeciesList(): Observable<Species[]>{
+    return this.http.get<ResponseSpeciesList>('https://swapi.dev/api/species/').pipe(
+      filter((responseSpeciesList: ResponseSpeciesList)=> (responseSpeciesList!=null)),
+      map((responseSpeciesList: ResponseSpeciesList) => {
+        return responseSpeciesList.results;
+      }),
       catchError((error) =>this.handleError(error, [])));
   };
   
-  getStarwarsList (): Observable <Character[]> {
-    return this.http.get<Character[]>('api/characters').pipe(
-      tap((Response)=> this.log(Response)),
+  getStarwarsList (): Observable<Character[]> {
+    return this.http.get<ResponseCharacterList>('https://swapi.dev/api/people').pipe(
+      map((responseCharacterList: ResponseCharacterList) => (responseCharacterList.results)),
+      map((characters: Character[])=>{
+        return characters.map((character: Character)=> {
+          const url:string =character.url;
+          const match = url.match(/\/(\d+)\/$/);
+          return  { ...character, id: match[1]};
+        })
+      }),
       catchError((error) =>this.handleError(error, []))
         
     );
   }
-  getcharactersId(charactersId: number): Observable <Character|undefined>{
-    return this.http.get<Character>(`api/characters/${charactersId}`).pipe(
-    tap((Response)=> this.log(Response)),
+  getcharactersById(charactersId: number): Observable <Character|undefined>{
+    return this.http.get<Character>(`https://swapi.dev/api/people/${charactersId}`).pipe(
+    map((character: Character)=>{
+      const url:string =character.url;
+      const match = url.match(/\/(\d+)\/$/);
+      return  { ...character, id: match[1] };
+    }
+    ),
     catchError((error) =>this.handleError(error, undefined))
-
     );
+    
   }
 
-  updatecharacter(character: Character): Observable<null> {
+  updatecharacter(character: Character): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.put('', character, httpOptions).pipe(
-      catchError((error) => this.handleError(error, null)),
-      tap((response) => this.log(response))
-    );
+    return this.http.put('', character, httpOptions);
   }
 
 
@@ -49,29 +61,23 @@ export class StarwarsService {
       headers: new HttpHeaders({'Content-type': 'application/json'})
     }
     return this.http.post<Character>('api/starwars', characters, httpOptions).pipe(
-      catchError((error) =>this.handleError(error, undefined)),
-      tap((Response) => this.log(Response))
+      catchError((error) =>this.handleError(error, undefined))
     );
   }
 
-  deleteCharacterById(characterid: number): Observable<null>{
+  deleteCharacterById(characterid: number): Observable<any>{
     return this.http.delete(`api/characters/${characterid}`).pipe(
-      catchError((error) =>this.handleError(error, undefined)),
-      tap((res) => console.log(res))
+      catchError((error) =>this.handleError(error, undefined))
     );
   }
 
 
   searchcharacterslist(term: string): Observable<Character[]>{
     return this.http.get<Character[]>(`api/characters/?name=${term}`).pipe(
-      tap((Response)=> this.log(Response)),
       catchError((error) =>this.handleError(error, []))
     );
   }
   
-  private log(response: any){
-    console.table(response);
-  }
 
   private handleError(error: Error, errorValue: any){
     console.error(error);

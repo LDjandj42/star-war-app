@@ -12,6 +12,8 @@ import { AddCharacterComponent } from './add-character/add-character.component';
 import { MaterialModule } from '../material.module';
 import { EditcharacterComponent } from './edit-characters/edit-characters.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ListSpeciesComponent } from './list-species/list-species.component';
+
 
 
 const charactersroutes: Routes = [
@@ -30,6 +32,8 @@ const charactersroutes: Routes = [
     CharacterFormComponent,
     AddCharacterComponent,
     EditcharacterComponent,
+    ListSpeciesComponent,
+
     
   ],
   imports: [

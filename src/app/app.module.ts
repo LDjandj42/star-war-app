@@ -23,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,{dataEncapsulation: false}),
+    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService,{dataEncapsulation: false}),
     StarwarsModule,
     AppRoutingModule,
     FlexLayoutModule,

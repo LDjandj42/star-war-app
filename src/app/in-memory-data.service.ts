@@ -1,4 +1,4 @@
-import { STARWARSLIST } from './starwars/mock-starwars_list';
+
 import { Injectable } from '@angular/core';
 import {InMemoryDbService, } from 'angular-in-memory-web-api'
 
@@ -9,7 +9,6 @@ import {InMemoryDbService, } from 'angular-in-memory-web-api'
 export class InMemoryDataService implements InMemoryDbService{
 
   createDb(){
-    const characters = STARWARSLIST;
-    return {characters};
+    return true
   }
 }

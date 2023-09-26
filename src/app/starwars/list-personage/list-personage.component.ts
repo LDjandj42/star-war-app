@@ -1,9 +1,10 @@
-import { Character } from './../characters';
+
 import { Router } from '@angular/router';
 import { Component,  Input,  OnInit } from '@angular/core';
 import { StarwarsService } from '../starwars.service';
 import { of, map, withLatestFrom } from 'rxjs';
-import { Root, Species } from '../interface';
+import { ResponseSpeciesList, Species } from '../interface';
+import { Character, ResponseCharacterList } from '../characters';
 
 @Component({
   selector: 'app-list-personage',
@@ -15,39 +16,37 @@ import { Root, Species } from '../interface';
 export class ListPersonageComponent implements OnInit {
   @Input() carracters : Character;
   starwars: Character[];
-  charactersselected: Character|undefined;
+  charactersselected: Character;
   
   constructor(private router: Router, private starwarsService: StarwarsService ){}
 
   ngOnInit(){
-    this.starwarsService.getSpeciesList().subscribe((speciesL) => {
-      console.log(speciesL)
-    })
-    // this.starwarsService.getStarwarsList().pipe(
-    //   withLatestFrom(this.starwarsService.getSpeciesList().pipe(
-    //     map((root: Root) => (root.results))
-    //   )),
-    //   map((([characterList, speciesList]: [Character[],Species[]]):Character[] => {
-    //     const characterListToReturn:Character[]= characterList.map((character: Character) => {
-    //       const speciesUrl:string = character.species[0];
-    //       const matchingSpecies:Species = speciesList.find((species: Species) => species.url === speciesUrl);
-    //       return { ...character, speciesName: matchingSpecies?.name };
-    //     });
-    //     console.log(speciesList);
-    //     console.log(characterListToReturn);
-    //     return characterListToReturn;
-    //   }))
-    //   )
-    //   .subscribe((charactersList : any) => {this.starwars = charactersList});
+    this.starwarsService.getStarwarsList().pipe(
+      withLatestFrom(this.starwarsService.getSpeciesList()),
+      map((([characterList, speciesList]: [Character[],Species[]]):Character[] => {
+        const characterListToReturn:Character[]= characterList.map((character: Character) => {
+          const speciesUrl:string = character.species[0];
+          const matchingSpecies:Species = speciesList.find((species: Species) => species.url === speciesUrl);
+          if (character.species.length === 0) { //this logic is because characterList can be empty
+            return { ...character, speciesName: 'Human' };
+          };
+          return { ...character, speciesName: matchingSpecies?.name };
+          
+        });
+        console.log(speciesList);
+        console.log(characterListToReturn);
+        return characterListToReturn;
+      }))
+      )
+      .subscribe((charactersList : any) => {this.starwars = charactersList});
+    
     
 
     this.starwarsService.getSpeciesList()
     .subscribe((speciesList)=> {
-      console.log(speciesList)
+      // console.log(speciesList)
     })
   }
-
-
 
   selctecharacters(charactersid: string){
     

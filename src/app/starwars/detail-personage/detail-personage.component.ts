@@ -22,7 +22,7 @@ export class DetailPersonageComponent implements OnInit {
     const charactersid: string|null= this.route.snapshot.paramMap.get('id');
     
     if(charactersid){
-      this.charactersService.getcharactersId(+charactersid)
+      this.charactersService.getcharactersById(+charactersid)
       .subscribe(characters => (this.characters =characters));
     }
   }

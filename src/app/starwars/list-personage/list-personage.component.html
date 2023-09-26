@@ -1,21 +1,22 @@
 <div class="app-list-personage" fxLayout="column" fxLayoutAlign="start center">
     <app-search-characters></app-search-characters>
     <div fxLayout="row wrap" class="app-list-personage__background-color">
-        <div *ngFor="let character of starwars" fxLayout="column" fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100" (click)="goTocharacters(character)" class="app-detail-personage__background-color" fxLayoutAlign="start center">
-            <img [src]="character.picture" width="150" height="150">
-            <p>{{ character.name }} :</p>
-            <p>
-                <small>Année de naissance : {{ character.birth_year}} </small>
-            </p>
-            <p>
-                <small>Taille:{{character.height}}</small>
-            </p>
-            <p>
-                <small>{{character.homeworld}} </small>
-            </p>
-            <p>
-                <small>{{character.speciesName}} </small>
-            </p>
+        <div *ngFor="let character of starwars" fxLayout="column" fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100"  class="app-detail-personage__background-color" fxLayoutAlign="start center">
+            <div fxLayout="column" fxLayoutAlign="start center" class="app-list-personage__border" (click)="goTocharacters(character)">
+                <p>{{ character.name }} :</p>
+                <p>
+                    <small>Année de naissance : {{ character.birth_year}} </small>
+                </p>
+                <p>
+                    <small>Taille:{{character.height}}</small>
+                </p>
+                <p>
+                    <small>{{character.homeworld}} </small>
+                </p>
+                <p>
+                    <small>{{character.speciesName}} </small>
+                </p>
+            </div>
         </div>
     </div>
     <a (click)="goToAddStarWarsCharacters()" class="app-list-personage__botton">Ajouter un personage</a>

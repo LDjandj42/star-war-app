@@ -5,7 +5,14 @@
 
     &__background-color{
         background-color: cornsilk;
-    } 
+
+    }
+
+    &__border{
+        border:2px solid #FFE81F;
+        margin-bottom: 1rem;
+    }
+
     &__botton{
         background-color: cornsilk;
         padding: 0 1rem 5px 1rem;

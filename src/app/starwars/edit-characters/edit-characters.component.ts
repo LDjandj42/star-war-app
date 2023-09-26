@@ -25,7 +25,7 @@ export class EditcharacterComponent implements OnInit {
   ngOnInit() {
     const characterId: string|null = this.route.snapshot.paramMap.get('id');
     if(characterId) {
-      this.starwarsService.getcharactersId(+characterId)
+      this.starwarsService.getcharactersById(+characterId)
         .subscribe(Character => this.character = Character);
     } else {
       this.character= undefined;

@@ -19,17 +19,13 @@ export class CharacterFormComponent  implements OnInit{
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9àéèç]{1,25}$')
     ]],
-    height: new FormControl<number>(150,[
+    height: new FormControl<string>('',[
       Validators.required,
-      Validators.minLength(2),
-      Validators.min(0),
-      Validators.max(999),
+      Validators.pattern('^[0-9]{1,3}$')
     ]),
-    mass: new FormControl<number>(70,[
+    mass: new FormControl<string>('',[
       Validators.required,
-      Validators.minLength(2),
-      Validators.min(0),
-      Validators.max(999),
+      Validators.pattern('^[0-9]{1,3}$')
     ]),
     hairColor:['',[
       Validators.required,
@@ -51,7 +47,7 @@ export class CharacterFormComponent  implements OnInit{
       Validators.required,
       Validators.pattern('^[a-zA-Zàéèç1-9 :/.-]{1,9999}$')
     ]],
-    picture:['lien par defaud',[
+    speciesName:['',[
       Validators.required,
       Validators.pattern('^[a-zA-Z0-9àéèç :/.-]{1,9999}$')
     ]],
@@ -68,7 +64,7 @@ export class CharacterFormComponent  implements OnInit{
     this.isAddForm = this.router.url.includes('add');
     this.starwarsService.getSpeciesList()
     .subscribe((speciesList)=> {
-      console.log(speciesList)
+      this.speciesList = speciesList;
     })
 
     
@@ -85,25 +81,22 @@ export class CharacterFormComponent  implements OnInit{
       eye_color: this.characterForm.value.eyeColor,
       birth_year: this.characterForm.value.birthYear,
       homeworld: this.characterForm.value.homeworld,
-      picture: this.isAddForm ? this.characterForm.value.picture : this.character.picture
+      speciesName:this.characterForm.value.speciesName,
     };
 
-    console.log(this.characterForm.errors);
+
     
     if(this.characterForm.invalid){
       this.characterForm.markAllAsTouched();
-      
       return;
     }
     if(this.isAddForm) {
       
       this.starwarsService.addcharacters(characterToEdit)
         .subscribe((character: Character) => this.router.navigate(['/starwars', character.id]));
-        console.log(characterToEdit);
     } else {
       this.starwarsService.updatecharacter(characterToEdit)
         .subscribe(() => this.router.navigate(['/starwars', this.character.id]));
-        console.log(characterToEdit);
     }
   }
   
