@@ -1,1 +1,15 @@
-<p>list-species works!</p>
+<div fxLayout="column" fxLayoutAlign="start center"  fxFill class="app-list-species">
+    <p>Liste des differante espèces</p>
+    <ag-grid-angular 
+    class="ag-theme-alpine"
+    [rowData]="rowData$ |async"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [animateRows]="true"
+    (rowClicked)="onRowClicked($event)"
+    [getRowStyle]="getRowStyle"
+    ></ag-grid-angular>
+    <a (click)="goToStarWarsList ()" class="app-list-species__botton">retour</a>
+</div>
+
+<!-- <div [style.background-color]:hover="randomColor(1)"> 1</div> -->

@@ -13,12 +13,17 @@ import { MaterialModule } from '../material.module';
 import { EditcharacterComponent } from './edit-characters/edit-characters.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListSpeciesComponent } from './list-species/list-species.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { DetailSpeciesComponent } from './detail-species/detail-species.component';
+import { CharacterThumbnailComponent } from './components/character-thumbnail/character-thumbnail.component';
 
 
 
 const charactersroutes: Routes = [
   {path: 'edit/starwars/:id', component: EditcharacterComponent},
   {path: 'starwars', component: ListPersonageComponent},
+  {path: 'starwars-species-list', component: ListSpeciesComponent},
+  {path: 'starwars-species-list/:id', component: DetailSpeciesComponent},
   {path: 'starwars-add-charracter', component: AddCharacterComponent},
   {path: 'starwars/:id', component: DetailPersonageComponent},
 
@@ -33,6 +38,8 @@ const charactersroutes: Routes = [
     AddCharacterComponent,
     EditcharacterComponent,
     ListSpeciesComponent,
+    DetailSpeciesComponent,
+    CharacterThumbnailComponent,
 
     
   ],
@@ -40,6 +47,7 @@ const charactersroutes: Routes = [
     HttpClientModule,
     CommonModule,
     FormsModule,
+    AgGridModule,
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,

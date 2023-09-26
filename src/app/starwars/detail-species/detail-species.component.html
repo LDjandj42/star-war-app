@@ -1,0 +1,66 @@
+<div *ngIf="species" class="app-detail-species" fxLayout="column" fxLayoutAlign="start center">
+    <div>
+    <h2>{{ species.name }}</h2>
+    <div>
+      <div>
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <td>Nom</td>
+                <td><strong>{{ species.name }}</strong></td>
+              </tr>
+              <tr>
+                <td>Classification</td>
+                <td>
+                  <strong>{{ species.classification}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Designation</td>
+                <td>
+                  <strong>{{ species.designation }}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Couleur des yeux possible</td>
+                <td>
+                  <strong>{{ species.eye_colors }}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>couleur de peau possible</td>
+                <td>
+                  <strong>{{ species.skin_colors }}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Espérance de vie moyen</td>
+                <td>
+                  <strong>{{ species.average_lifespan}} years</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Date de création</td>
+                <td><em>{{ species.created | date:"dd/MM/yyyy" }}</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <a (click)="goTospeciesList()" class="app-detail-species__color" fxLayout="column" fxLayoutAlign="start center">Retour aux espèces</a>
+          <a (click)="goToStarWarsList()" class="app-detail-species__color" fxLayout="column" fxLayoutAlign="start center">Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+<div fxLayout="column" fxLayoutAlign="start center">
+  <h4  class="app-detail-species__title" *ngIf='!species'>Aucun presonage à afficher !
+    <div>
+      <a (click)="goToStarWarsList()" class="app-detail-species__link" fxLayout="column" fxLayoutAlign="start center">Retour</a>
+    </div>
+  </h4>
+</div>
+
+

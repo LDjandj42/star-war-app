@@ -1,0 +1,20 @@
+
+.app-list-species{
+    background-color: cornsilk;
+    padding-bottom: 5px;
+
+    
+    ag-grid-angular{
+        width: calc(201px * 5);
+        height: calc(100% - 20rem); 
+        box-sizing: border-box;
+    }
+    &__botton{
+        padding: 0 1rem 5px 1rem;
+        border: 2px solid #FFE81F;
+        color: black;
+        font-weight: bold;
+    }
+}
+
+  

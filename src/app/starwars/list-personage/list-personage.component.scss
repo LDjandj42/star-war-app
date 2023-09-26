@@ -5,6 +5,7 @@
 
     &__background-color{
         background-color: cornsilk;
+        padding-bottom: 5px;
 
     }
 
@@ -14,10 +15,19 @@
     }
 
     &__botton{
-        background-color: cornsilk;
         padding: 0 1rem 5px 1rem;
-        color: #FFE81F;
+        border: 2px solid #FFE81F;
+        color: black;
         font-weight: bold;
     }
+
+    &__character-thumbnail{
+        margin: 10px;
+        width: calc(100% / 3);
+        height: 80%;
+        border: 1px solid #FFE81F;
+    }
 }
+
+
 

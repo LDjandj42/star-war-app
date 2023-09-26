@@ -21,5 +21,6 @@ export interface Species {
     created: string
     edited: string
     url: string
+    id?: number
 }
   

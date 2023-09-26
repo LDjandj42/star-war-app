@@ -33,40 +33,29 @@ export class ListPersonageComponent implements OnInit {
           return { ...character, speciesName: matchingSpecies?.name };
           
         });
-        console.log(speciesList);
-        console.log(characterListToReturn);
         return characterListToReturn;
       }))
       )
-      .subscribe((charactersList : any) => {this.starwars = charactersList});
+      .subscribe((charactersList : any) => {this.starwars = charactersList;});
     
     
 
     this.starwarsService.getSpeciesList()
     .subscribe((speciesList)=> {
-      // console.log(speciesList)
     })
   }
 
-  selctecharacters(charactersid: string){
-    
-  const characters: Character|undefined = this.starwars.find(characters => characters.id == +charactersid)
-  if(characters){
-    console.log(`vous avez demandé le presonage ${characters.name}`);
-    this.charactersselected = characters;
-  }
-  else{
 
-    console.log(`vous avez demandé un personnage qui n'existe pas.`)
-    this.charactersselected = characters;}
-  }
-
-
-  goTocharacters(characters: Character){
-    this.router.navigate(['/starwars', characters.id])
-  }
 
   goToAddStarWarsCharacters(){
-    this.router.navigate(['starwars-add-charracter']);
+    this.router.navigate(['starwars-add-charracter'])
   }
+
+  goToSpeciesList(){
+    this.router.navigate(['starwars-species-list']);
+}
+onCharacterSelected(characterId: number) {
+  this.router.navigateByUrl(`/starwars/${characterId}`);
+}
+
 }

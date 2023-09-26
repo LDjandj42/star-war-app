@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Character, ResponseCharacterList, } from './characters';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, tap, of, map, filter } from 'rxjs';
+import { Observable, catchError, tap, of, map, forkJoin, filter } from 'rxjs';
 import { ResponseSpeciesList, Species } from './interface';
 
 
@@ -15,7 +15,11 @@ export class StarwarsService {
     return this.http.get<ResponseSpeciesList>('https://swapi.dev/api/species/').pipe(
       filter((responseSpeciesList: ResponseSpeciesList)=> (responseSpeciesList!=null)),
       map((responseSpeciesList: ResponseSpeciesList) => {
-        return responseSpeciesList.results;
+        return responseSpeciesList.results.map((species: Species)=>{
+            const url:string =species.url;
+            const match = url.match(/\/(\d+)\/$/);
+            return  { ...species, id: match[1]};
+      });
       }),
       catchError((error) =>this.handleError(error, [])));
   };
@@ -34,6 +38,18 @@ export class StarwarsService {
         
     );
   }
+    getSpeciesIdByUrl(speciesId: number): Observable <Species|undefined>{
+      return this.http.get<Species>(`https://swapi.dev/api/species/${speciesId}`).pipe(
+        map((species: Species)=>{
+          const url:string = species.url;
+          const match = url.match(/\/(\d+)\/$/);
+          return  { ...species, id: match[1] };
+        }
+      ),
+      catchError((error) =>this.handleError(error, undefined))
+      );
+    }
+
   getcharactersById(charactersId: number): Observable <Character|undefined>{
     return this.http.get<Character>(`https://swapi.dev/api/people/${charactersId}`).pipe(
     map((character: Character)=>{
@@ -84,4 +100,30 @@ export class StarwarsService {
     return of(errorValue);
   }
 
+
+  generateRandomColor(speciesId: number): string {
+    const localStorageKey = `elementColor_${speciesId}`;
+    const storedColor = localStorage.getItem(localStorageKey);
+  
+    if (storedColor) {
+      return storedColor;
+    }
+  
+    const randomColor = `rgb(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)})`;
+    localStorage.setItem(localStorageKey, randomColor);
+  
+    return randomColor;
+  }
+
+  extractSpeciesIdsFromUrls(speciesUrls: string[]): number[]{
+    if (speciesUrls.length === 0) {
+      return [1]; // Retourner un tableau avec 1 de façon synchrone.
+    }
+  
+   return speciesUrls.map(url =>{
+      const match = url.match(/\/(\d+)\/$/);
+        console.log(match[1])
+        return match ? parseInt(match[1], 10) : -1;
+    })
+  }
 }

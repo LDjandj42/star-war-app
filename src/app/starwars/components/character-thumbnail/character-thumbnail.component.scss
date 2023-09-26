@@ -1,0 +1,29 @@
+.app-charater-thumbnail{
+    &__list{
+     padding: 1rem;
+     }
+ 
+     &__background-color{
+        background-color: cornsilk;
+        padding-bottom: 5px;
+ 
+     }
+ 
+     &__border{
+         border:2px solid #FFE81F;
+         margin-bottom: 1rem;
+     }
+ 
+     &__botton{
+         padding: 0 1rem 5px 1rem;
+         border: 2px solid #FFE81F;
+         color: black;
+         font-weight: bold;
+     }
+    &__box-color{
+        border-radius: 20px;
+        padding: 3px;
+    }
+ }
+ 
+ 

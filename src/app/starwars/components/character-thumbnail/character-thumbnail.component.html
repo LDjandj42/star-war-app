@@ -1,0 +1,19 @@
+<div class="app-charater-thumbnail">
+    <div class="app-charater-thumbnail__background-color" fxLayout="column" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="start center" class="app-charater-thumbnail_border" (click)=" onCharacterClick(character.id)">
+            <p>{{ character.name }} :</p>
+            <p>
+                <small>Année de naissance : {{ character.birth_year}} </small>
+            </p>
+            <p>
+                <small>Taille: {{character.height}}</small>
+            </p>
+            <p>
+                <small>{{character.homeworld}} </small>
+            </p> 
+            <p  class="app-charater-thumbnail__box-color" [style.background-color]="randomColor(character.species)">
+                <small >Espèce: {{character.speciesName}} </small>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+.app-detail-species{
+    background-color: cornsilk;
+
+    &__color{
+        border-left: 2px solid #FFE81F;
+        border-top: 2px solid #FFE81F;
+        border-right: 2px solid #FFE81F;
+    }
+    &__title{
+        padding: 1rem;
+        background-color: cornsilk;
+    }
+    &__link{
+        border: 1px solid #FFE81F;
+    }
+}
