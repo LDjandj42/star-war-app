@@ -8,7 +8,7 @@ import { ResponseSpeciesList, Species } from './interface';
 @Injectable()
 
 export class StarwarsService {
-
+  
   constructor(private http: HttpClient){}
   
   getSpeciesList(): Observable<Species[]>{
@@ -38,17 +38,17 @@ export class StarwarsService {
         
     );
   }
-    getSpeciesIdByUrl(speciesId: number): Observable <Species|undefined>{
-      return this.http.get<Species>(`https://swapi.dev/api/species/${speciesId}`).pipe(
-        map((species: Species)=>{
-          const url:string = species.url;
-          const match = url.match(/\/(\d+)\/$/);
-          return  { ...species, id: match[1] };
-        }
-      ),
-      catchError((error) =>this.handleError(error, undefined))
-      );
-    }
+  getSpeciesIdByUrl(speciesId: number): Observable <Species|undefined>{
+    return this.http.get<Species>(`https://swapi.dev/api/species/${speciesId}`).pipe(
+      map((species: Species)=>{
+        const url:string = species.url;
+        const match = url.match(/\/(\d+)\/$/);
+        return  { ...species, id: match[1] };
+      }
+    ),
+    catchError((error) =>this.handleError(error, undefined))
+    );
+  }
 
   getcharactersById(charactersId: number): Observable <Character|undefined>{
     return this.http.get<Character>(`https://swapi.dev/api/people/${charactersId}`).pipe(
@@ -86,13 +86,6 @@ export class StarwarsService {
       catchError((error) =>this.handleError(error, undefined))
     );
   }
-
-
-  searchcharacterslist(term: string): Observable<Character[]>{
-    return this.http.get<Character[]>(`api/characters/?name=${term}`).pipe(
-      catchError((error) =>this.handleError(error, []))
-    );
-  }
   
 
   private handleError(error: Error, errorValue: any){
@@ -120,9 +113,8 @@ export class StarwarsService {
       return [1]; // Retourner un tableau avec 1 de façon synchrone.
     }
   
-   return speciesUrls.map(url =>{
+    return speciesUrls.map(url =>{
       const match = url.match(/\/(\d+)\/$/);
-        console.log(match[1])
         return match ? parseInt(match[1], 10) : -1;
     })
   }

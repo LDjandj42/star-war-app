@@ -16,6 +16,8 @@ import { ListSpeciesComponent } from './list-species/list-species.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { DetailSpeciesComponent } from './detail-species/detail-species.component';
 import { CharacterThumbnailComponent } from './components/character-thumbnail/character-thumbnail.component';
+import { CustomInputComponent } from './custom-input/custom-input.component';
+
 
 
 
@@ -40,6 +42,7 @@ const charactersroutes: Routes = [
     ListSpeciesComponent,
     DetailSpeciesComponent,
     CharacterThumbnailComponent,
+    CustomInputComponent,
 
     
   ],

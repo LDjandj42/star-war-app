@@ -13,11 +13,12 @@ import { Species } from '../interface';
 export class CharacterFormComponent  implements OnInit{
   @Input() character: Character;
   isAddForm: boolean;
-  speciesList: Species[]
+  speciesList: Species[];
+  external = "";
   characterForm = this.fb.group({
     name:['',[
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9àéèç]{1,25}$')
+      Validators.pattern('^[a-zA-Z0-9àéèç-]{1,25}$')
     ]],
     height: new FormControl<string>('',[
       Validators.required,
@@ -47,10 +48,7 @@ export class CharacterFormComponent  implements OnInit{
       Validators.required,
       Validators.pattern('^[a-zA-Zàéèç1-9 :/.-]{1,9999}$')
     ]],
-    speciesName:['',[
-      Validators.required,
-      Validators.pattern('^[a-zA-Z0-9àéèç :/.-]{1,9999}$')
-    ]],
+    speciesName:[''],
   });
 
 

@@ -36,27 +36,20 @@ export class ListSpeciesComponent implements OnInit{
     console.log(this.rowData$)  
     
   }
-  public getRowStyle(params: RowClassParams<Species>) {
-    console.log(params)
-    console.log(params.data.id)
-    if (params?.data?.id == null){
+  getRowStyle = (params: RowClassParams<Species>) => {
+    if (params?.data?.id == null ){
       return null;
     }
-    const random: string =this.randomColor(params.data.id);
-    console.log(random);
-    return {background: this.randomColor(params.data.id)};
-  }
+    const random: string = this.starwarsService.generateRandomColor(params.data.id);
+    return {background: random};
+
+  };
 
   goToStarWarsList(){
       this.router.navigate(['/starwars']);
   }
 
   onRowClicked(event: RowClickedEvent<Species>){
-    console.log(event);
     this.router.navigateByUrl(`/starwars-species-list/${event.data.id}`);
   } 
-
-  randomColor(speciesId: number){
-    return this.starwarsService.generateRandomColor(speciesId)
-  }
 }

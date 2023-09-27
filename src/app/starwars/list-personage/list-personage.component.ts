@@ -54,8 +54,8 @@ export class ListPersonageComponent implements OnInit {
   goToSpeciesList(){
     this.router.navigate(['starwars-species-list']);
 }
-onCharacterSelected(characterId: number) {
-  this.router.navigateByUrl(`/starwars/${characterId}`);
-}
+  onCharacterSelected(characterId: number) {
+    this.router.navigateByUrl(`/starwars/${characterId}`);
+  }
 
 }

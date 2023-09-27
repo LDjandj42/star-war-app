@@ -16,20 +16,20 @@ export class SearchcharactersComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private charactersservice: StarwarsService){}
+  constructor(private router: Router, private starwarsService: StarwarsService){}
 
   ngOnInit(): void {
-    this.characters$ = this.searchTerms.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((term) => this.charactersservice.searchcharacterslist(term))
-
-    );
+   
   }
 
   search(term: string){
-    this.searchTerms.next(term);
+    console.log(term)
   }
+  
+
+
+  
+
   goTodetail(characters: Character){
     const link =['/starwars', characters.id];
     this.router.navigate(link);

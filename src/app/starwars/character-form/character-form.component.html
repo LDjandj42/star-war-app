@@ -55,15 +55,9 @@
         <mat-error *ngIf="characterForm.controls.homeworld.hasError('required')">Ce champ est requis</mat-error>
         <mat-error *ngIf="characterForm.controls.homeworld.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>La race du personage</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let species of speciesList" [value]="species.url">
-                {{ species.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+   
+    <app-custom-input formControlName="speciesName"></app-custom-input>
+    
 
     <button type="submit">
         valider
