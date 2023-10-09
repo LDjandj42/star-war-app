@@ -38,9 +38,6 @@ export class ListSpeciesComponent implements OnInit{
   ngOnInit(){
     this.store.dispatch(loadSpeciesList());
     this.speciesList$ = this.store.select(getSpeciesList)
-    console.log();
-    
-    
      
   }
   getRowStyle = (params: RowClassParams<Species>) => {

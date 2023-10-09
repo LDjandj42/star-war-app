@@ -17,7 +17,6 @@ export const loadCharacterListFailure = createAction(
 export const deleteCharacterList = createAction(
   '[Character API] delete character List',
 );
-  
 
 export const loadCharacter = createAction(
   '[Character API] load character',

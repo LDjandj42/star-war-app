@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Character } from '../characters';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-character',
@@ -16,8 +16,6 @@ export class AddCharacterComponent implements OnInit{
   
   ngOnInit() {
     this.character = new Character();
-
-
   }
   goToStarWarsList(){
     this.router.navigate(['/starwars']);

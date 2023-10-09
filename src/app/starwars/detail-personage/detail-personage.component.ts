@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, take } from 'rxjs';
-import { loadCharacter } from 'src/app/state-characters/actions';
+import { deleteCharacter, loadCharacter } from 'src/app/state-characters/actions';
 import { getcharcter } from 'src/app/state-characters/characters-selectors';
 import { Character } from '../characters';
 import { StarwarsService } from './../starwars.service';
@@ -14,12 +14,16 @@ import { StarwarsService } from './../starwars.service';
   styleUrls: ['./detail-personage.component.scss']
  
 })
-export class DetailPersonageComponent implements OnInit {
+export class DetailPersonageComponent implements OnInit,OnDestroy {
   
 
   characters: Character;
   
   constructor (private route: ActivatedRoute, private router: Router, private charactersService: StarwarsService, private store: Store){}
+  ngOnDestroy(): void {
+    this.store.dispatch(deleteCharacter());
+  }
+
 
   ngOnInit() {
     this.route.params.pipe(

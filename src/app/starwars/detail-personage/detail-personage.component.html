@@ -1,4 +1,4 @@
-<div *ngIf="characters" class="app-detail-personage" fxLayout="column" fxLayoutAlign="start center">
+<div *ngIf="characters" class="app-detail-personage d-flex-column align-items-center" >
     <div>
     <h2>{{ characters.name }}</h2>
     <div>
@@ -48,20 +48,20 @@
           </table>
         </div>
         <div>
-          <a (click)="goToStarWarsList ()" class="app-detail-personage__color" fxLayout="column" fxLayoutAlign="start center">Retour</a>
-          <a (click)="goToEditcharacter(characters)" class="app-detail-personage__color"fxLayout="column" fxLayoutAlign="start center">Éditer</a>
+          <a (click)="goToStarWarsList ()" class="app-detail-personage__color d-flex-column align-items-center" >Retour</a>
+          <a (click)="goToEditcharacter(characters)" class="app-detail-personage__color d-flex-column align-items-center">Éditer</a>
         </div>
         <div>
-          <a (click)="deletecharacter(characters)" class="app-detail-personage__color" fxLayout="column" fxLayoutAlign="start center">suprimer</a>
+          <a (click)="deletecharacter(characters)" class="app-detail-personage__color d-flex-column align-items-center" >suprimer</a>
         </div>
       </div>
     </div>
     </div>
 </div>
-<div fxLayout="column" fxLayoutAlign="start center">
+<div class="d-flex-column align-items-center" >
   <h4  class="app-detail-personage__title" *ngIf='!characters'>Aucun presonage à afficher !
     <div>
-      <a (click)="goToStarWarsList ()" class="app-detail-personage__link" fxLayout="column" fxLayoutAlign="start center">Retour</a>
+      <a (click)="goToStarWarsList ()" class="app-detail-personage__link d-flex-column align-items-center" >Retour</a>
     </div>
   </h4>
 </div>

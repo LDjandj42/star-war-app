@@ -15,7 +15,7 @@ export class AppCharactersEffects{
             map((character: Character[]) => loadCharacterListSuccess({ ListCharacter: character })),
         )),
     ),
-);
+    );
     loadCharacter$ = createEffect(() =>
     this.action$.pipe(
         ofType(loadCharacter),

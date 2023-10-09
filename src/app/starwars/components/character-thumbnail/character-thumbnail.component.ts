@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, filter, take } from 'rxjs';
+import { loadCharacter } from 'src/app/state-characters/actions';
+import { getcharcter } from 'src/app/state-characters/characters-selectors';
 import { Character } from '../../characters';
 import { StarwarsService } from '../../starwars.service';
 
@@ -20,32 +22,32 @@ export class CharacterThumbnailComponent implements OnInit{
   charactersList$: Observable<Character[]>
   charactersselected: Character;
 
-  constructor(private router: Router, private starwarsService: StarwarsService, private store: Store ){}
+  constructor(private router: Router, private starwarsService: StarwarsService, private route: ActivatedRoute, private store: Store ){}
 
 
-  ngOnInit(){
+  ngOnInit() {
+    this.route.params.pipe(
+      filter((params) => params?.['id'] != null)
+    ).subscribe((params)=>this.store.dispatch(loadCharacter({ characterId: parseInt(params['id'])})))
+
+    this.store.select(getcharcter)
+      .pipe(
+        filter(character => !! character),
+        take(1))
+      .subscribe(character => {
+        this.character = character;
+      });
   }
 
-  selctecharacters(charactersid: string){
-    
-    const characters: Character|undefined = this.starwars.find(characters => characters.id == +charactersid)
-    if(characters){
-      console.log(`vous avez demandé le presonage ${characters.name}`);
-      this.charactersselected = characters;
-    }
-    else{
-  
-      console.log(`vous avez demandé un personnage qui n'existe pas.`)
-      this.charactersselected = characters;}
-    }
-  
-  onCharacterClick(characterId: number){
-    this.characterIdSelected.emit(characterId)
-  }
+
   randomColor(species: string[]){
     const speciesId= this.starwarsService.extractSpeciesIdsFromUrls(species);
     const speciesIdNumber = Number(speciesId); 
 
     return this.starwarsService.generateRandomColor(speciesIdNumber)
+  }
+
+  onCharacterSelected(characterId: number) {
+    this.router.navigateByUrl(`/starwars/${characterId}`);
   }
 }

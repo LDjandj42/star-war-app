@@ -5,9 +5,10 @@ import { Store } from '@ngrx/store';
 import { Observable, map, withLatestFrom } from 'rxjs';
 import { loadCharacterList } from 'src/app/state-characters/actions';
 import { getCharctersList } from 'src/app/state-characters/characters-selectors';
+import { loadSpeciesList } from 'src/app/state-species/actions';
+import { getSpeciesList } from 'src/app/state-species/species-selectors';
 import { Character } from '../characters';
 import { Species } from '../interface';
-import { StarwarsService } from '../starwars.service';
 
 @Component({
   selector: 'app-list-personage',
@@ -21,19 +22,14 @@ export class ListPersonageComponent implements OnInit {
   starwars: Character[];
   charactersselected: Character;
   charactersList$: Observable<Character[]>
-  
-  constructor(private router: Router, private starwarsService: StarwarsService, private store: Store ){}
+  speciesList$: Observable<Species[]>
+  constructor(private router: Router, private store: Store ){}
 
   ngOnInit() {
+    this.store.dispatch(loadSpeciesList());
     this.store.dispatch(loadCharacterList());
-    this.charactersList$ = this.store.select(getCharctersList);
-    this.charactersList$.subscribe((charactersList) => {
-      console.log(charactersList);
-    })
-  
-
-    this.starwarsService.getCharactersList().pipe(
-      withLatestFrom(this.starwarsService.getSpeciesList()),
+    this.charactersList$ = this.store.select(getCharctersList).pipe(
+      withLatestFrom(this.store.select(getSpeciesList)),
       map((([characterList, speciesList]: [Character[],Species[]]):Character[] => {
         const characterListToReturn:Character[]= characterList.map((character: Character) => {
           const speciesUrl:string = character.species[0];
@@ -46,14 +42,10 @@ export class ListPersonageComponent implements OnInit {
         });
         return characterListToReturn;
       }))
-      )
-      .subscribe((charactersList : any) => {this.starwars = charactersList;});
-    
-    
+      );
 
-  
+    
   }
-
 
 
   goToAddStarWarsCharacters(){

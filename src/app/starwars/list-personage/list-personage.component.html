@@ -1,6 +1,6 @@
 <div class="app-list-personage d-flex-column align-items-center">
     <app-search-characters></app-search-characters>
-    <div class="app-list-personage__character-thumbnail" *ngFor="let character of starwars"  >
+    <div class="app-list-personage__character-thumbnail" *ngFor="let character of (charactersList$ |async)" >
         <app-character-thumbnail [character]="character" (characterIdSelected)="onCharacterSelected($event)"> 
         </app-character-thumbnail>
     </div>
@@ -9,7 +9,3 @@
         <a (click)="goToSpeciesList()" class="app-list-personage__botton">liste des espèces</a>
     </div>
 </div>
-<!-- <div *ngFor="let character of (charactersList$ |async)">
-    {{character.name}}
-    class="gr-4-2auto"
-</div> -->
