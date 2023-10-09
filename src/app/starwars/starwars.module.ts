@@ -1,24 +1,22 @@
-import { DetailPersonageComponent } from './detail-personage/detail-personage.component';
-import { ListPersonageComponent } from './list-personage/list-personage.component';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { StarwarsService } from './starwars.service';
-import { SearchcharactersComponent } from './search-characters/search-characters.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CharacterFormComponent } from './character-form/character-form.component';
-import { AddCharacterComponent } from './add-character/add-character.component';
-import { MaterialModule } from '../material.module';
-import { EditcharacterComponent } from './edit-characters/edit-characters.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ListSpeciesComponent } from './list-species/list-species.component';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 import { AgGridModule } from 'ag-grid-angular';
-import { DetailSpeciesComponent } from './detail-species/detail-species.component';
+import { MaterialModule } from '../material.module';
+import { AddCharacterComponent } from './add-character/add-character.component';
+import { CharacterFormComponent } from './character-form/character-form.component';
 import { CharacterThumbnailComponent } from './components/character-thumbnail/character-thumbnail.component';
 import { CustomInputComponent } from './custom-input/custom-input.component';
-
-
+import { DetailPersonageComponent } from './detail-personage/detail-personage.component';
+import { DetailSpeciesComponent } from './detail-species/detail-species.component';
+import { EditcharacterComponent } from './edit-characters/edit-characters.component';
+import { ListPersonageComponent } from './list-personage/list-personage.component';
+import { ListSpeciesComponent } from './list-species/list-species.component';
+import { SearchcharactersComponent } from './search-characters/search-characters.component';
+import { StarwarsService } from './starwars.service';
 
 
 const charactersroutes: Routes = [
@@ -54,7 +52,8 @@ const charactersroutes: Routes = [
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    RouterModule.forChild(charactersroutes)
+    RouterModule.forChild(charactersroutes),
+   
    
   ],
   providers:[StarwarsService]

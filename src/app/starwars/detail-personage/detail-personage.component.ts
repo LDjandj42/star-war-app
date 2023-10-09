@@ -1,7 +1,11 @@
-import { StarwarsService } from './../starwars.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { filter, take } from 'rxjs';
+import { loadCharacter } from 'src/app/state-characters/actions';
+import { getcharcter } from 'src/app/state-characters/characters-selectors';
 import { Character } from '../characters';
-import { Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { StarwarsService } from './../starwars.service';
 
 
 @Component({
@@ -12,19 +16,30 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class DetailPersonageComponent implements OnInit {
   
-  characterslist: Character[];
+
   characters: Character;
   
-  constructor (private route: ActivatedRoute, private router: Router, private charactersService: StarwarsService){}
+  constructor (private route: ActivatedRoute, private router: Router, private charactersService: StarwarsService, private store: Store){}
 
   ngOnInit() {
-
-    const charactersid: string|null= this.route.snapshot.paramMap.get('id');
+    this.route.params.pipe(
+      filter((params) => params?.['id'] != null),
+    ).subscribe((params) => {
+      console.log(params['id'])
+      this.store.dispatch(loadCharacter({
+        characterId: parseInt(params['id'])
+      }))
+    })
+    this.store.select(getcharcter)
+      .pipe(
+        filter(characters => !!characters),
+        take(1))
+      .subscribe(characters => {
+        this.characters = characters;
+        console.log(this.characters);
+        
+      });
     
-    if(charactersid){
-      this.charactersService.getcharactersById(+charactersid)
-      .subscribe(characters => (this.characters =characters));
-    }
   }
     goToStarWarsList(){
       this.router.navigate(['/starwars']);

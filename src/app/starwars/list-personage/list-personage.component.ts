@@ -1,10 +1,13 @@
 
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Component,  Input,  OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, map, withLatestFrom } from 'rxjs';
+import { loadCharacterList } from 'src/app/state-characters/actions';
+import { getCharctersList } from 'src/app/state-characters/characters-selectors';
+import { Character } from '../characters';
+import { Species } from '../interface';
 import { StarwarsService } from '../starwars.service';
-import { of, map, withLatestFrom } from 'rxjs';
-import { ResponseSpeciesList, Species } from '../interface';
-import { Character, ResponseCharacterList } from '../characters';
 
 @Component({
   selector: 'app-list-personage',
@@ -17,11 +20,19 @@ export class ListPersonageComponent implements OnInit {
   @Input() carracters : Character;
   starwars: Character[];
   charactersselected: Character;
+  charactersList$: Observable<Character[]>
   
-  constructor(private router: Router, private starwarsService: StarwarsService ){}
+  constructor(private router: Router, private starwarsService: StarwarsService, private store: Store ){}
 
-  ngOnInit(){
-    this.starwarsService.getStarwarsList().pipe(
+  ngOnInit() {
+    this.store.dispatch(loadCharacterList());
+    this.charactersList$ = this.store.select(getCharctersList);
+    this.charactersList$.subscribe((charactersList) => {
+      console.log(charactersList);
+    })
+  
+
+    this.starwarsService.getCharactersList().pipe(
       withLatestFrom(this.starwarsService.getSpeciesList()),
       map((([characterList, speciesList]: [Character[],Species[]]):Character[] => {
         const characterListToReturn:Character[]= characterList.map((character: Character) => {
@@ -40,9 +51,7 @@ export class ListPersonageComponent implements OnInit {
     
     
 
-    this.starwarsService.getSpeciesList()
-    .subscribe((speciesList)=> {
-    })
+  
   }
 
 
@@ -59,3 +68,5 @@ export class ListPersonageComponent implements OnInit {
   }
 
 }
+
+

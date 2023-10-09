@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ColDef, RowClassParams, RowClickedEvent } from 'ag-grid-community';
 import { Observable } from 'rxjs';
+import { loadSpeciesList } from 'src/app/state-species/actions';
+import { getSpeciesList } from 'src/app/state-species/species-selectors';
 import { Species } from '../interface';
 import { StarwarsService } from '../starwars.service';
 
@@ -14,7 +17,7 @@ import { StarwarsService } from '../starwars.service';
 })
 export class ListSpeciesComponent implements OnInit{
   
-  rowData$: Observable<any[]>;
+
 
   columnDefs: ColDef[] =[
     {headerName:"Name", field: 'name',  width: 200},
@@ -27,14 +30,17 @@ export class ListSpeciesComponent implements OnInit{
     sortable: true, filter:true
     
   }; 
-  store: any;
+  speciesList$: Observable<Species[]>
 
 
-  constructor(private route: ActivatedRoute, private http:HttpClient, private starwarsService: StarwarsService, private router: Router,){};
+  constructor(private route: ActivatedRoute, private http:HttpClient, private starwarsService: StarwarsService, private router: Router, private store: Store){};
 
   ngOnInit(){
-    this.rowData$ = this.starwarsService.getSpeciesList()
-    // this.store.dispatch(speciesList({ ListSpecies: this.rowData$ }));
+    this.store.dispatch(loadSpeciesList());
+    this.speciesList$ = this.store.select(getSpeciesList)
+    console.log();
+    
+    
      
   }
   getRowStyle = (params: RowClassParams<Species>) => {
@@ -50,7 +56,7 @@ export class ListSpeciesComponent implements OnInit{
       this.router.navigate(['/starwars']);
   }
 
-  onRowClicked(event: RowClickedEvent<Species>){
+  onRowClicked(event: RowClickedEvent<Species>) {
     this.router.navigateByUrl(`/starwars-species-list/${event.data.id}`);
   } 
 }

@@ -9,3 +9,6 @@
         <a (click)="goToSpeciesList()" class="app-list-personage__botton">liste des espèces</a>
     </div>
 </div>
+<div *ngFor="let character of (charactersList$ |async)">
+    {{character.name}}
+</div>

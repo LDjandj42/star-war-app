@@ -1,6 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 
 
@@ -15,12 +14,14 @@ export class AppComponent implements OnInit{
   title(title: any) {
     throw new Error('Method not implemented.');
   }
-  constructor(private store: Store) { }
-  
-  ngOnInit(): void {
-   
-  }
 
+
+  constructor() { }
+
+  ngOnInit(): void {
+
+    }
+  
   }
   
 

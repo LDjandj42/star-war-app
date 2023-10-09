@@ -2,7 +2,7 @@
     <p>Liste des differante espèces</p>
     <ag-grid-angular 
     class="ag-theme-alpine"
-    [rowData]="rowData$ |async"
+    [rowData]="speciesList$ |async"
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"
     [animateRows]="true"
@@ -11,4 +11,3 @@
     ></ag-grid-angular>
     <a (click)="goToStarWarsList ()" class="app-list-species__botton">retour</a>
 </div>
-

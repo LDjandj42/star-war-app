@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, Output, ViewEncapsulation, EventEmitter, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { StarwarsService } from '../../starwars.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Character } from '../../characters';
-import { Species } from '../../interface';
+import { StarwarsService } from '../../starwars.service';
+
 
 @Component({
   selector: 'app-character-thumbnail',
@@ -15,15 +17,13 @@ export class CharacterThumbnailComponent implements OnInit{
   @Input() character : Character;
   @Output() characterIdSelected = new EventEmitter<number>();
   starwars: Character[];
+  charactersList$: Observable<Character[]>
   charactersselected: Character;
 
-  constructor(private router: Router, private starwarsService: StarwarsService ){}
+  constructor(private router: Router, private starwarsService: StarwarsService, private store: Store ){}
 
 
   ngOnInit(){
-    
-    
-    
   }
 
   selctecharacters(charactersid: string){

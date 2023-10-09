@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Character, ResponseCharacterList, } from './characters';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, tap, of, map, forkJoin, filter } from 'rxjs';
+import { Observable, catchError, filter, map, of } from 'rxjs';
+import { Character, ResponseCharacterList, } from './characters';
 import { ResponseSpeciesList, Species } from './interface';
-import { NgFor } from '@angular/common';
 
 @Injectable()
 
@@ -24,7 +23,7 @@ export class StarwarsService {
       catchError((error) =>this.handleError(error, [])));
   };
   
-  getStarwarsList (): Observable<Character[]> {
+  getCharactersList(): Observable<Character[]> {
     return this.http.get<ResponseCharacterList>('https://swapi.dev/api/people').pipe(
       map((responseCharacterList: ResponseCharacterList) => (responseCharacterList.results)),
       map((characters: Character[])=>{
@@ -119,7 +118,7 @@ export class StarwarsService {
     })
   }
   searchCharactersByName(searchTerm: string): Observable<Character[]> {
-    return this.getStarwarsList().pipe(
+    return this.getCharactersList().pipe(
       map(characters => characters.filter(character =>
         character.name.toLowerCase().includes(searchTerm.toLowerCase())
       ))
