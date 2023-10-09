@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit , ViewEncapsulation} from '@angular/core';
-import { GridOptions, ColDef, RowClickedEvent,  RowClassRules, RowClassParams,} from 'ag-grid-community';
-import { Observable} from 'rxjs';
-import { StarwarsService } from '../starwars.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ColDef, RowClassParams, RowClickedEvent } from 'ag-grid-community';
+import { Observable } from 'rxjs';
 import { Species } from '../interface';
+import { StarwarsService } from '../starwars.service';
 
 @Component({
   selector: 'app-list-species',
@@ -27,14 +27,15 @@ export class ListSpeciesComponent implements OnInit{
     sortable: true, filter:true
     
   }; 
+  store: any;
 
 
   constructor(private route: ActivatedRoute, private http:HttpClient, private starwarsService: StarwarsService, private router: Router,){};
 
   ngOnInit(){
     this.rowData$ = this.starwarsService.getSpeciesList()
-    console.log(this.rowData$)  
-    
+    // this.store.dispatch(speciesList({ ListSpecies: this.rowData$ }));
+     
   }
   getRowStyle = (params: RowClassParams<Species>) => {
     if (params?.data?.id == null ){

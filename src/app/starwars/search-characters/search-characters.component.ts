@@ -1,5 +1,5 @@
 import { Character } from '../characters';
-import { Observable,Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { Observable,Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { StarwarsService } from '../starwars.service';
@@ -13,7 +13,7 @@ import { StarwarsService } from '../starwars.service';
 export class SearchcharactersComponent implements OnInit {
   searchTerms= new Subject<string>();
   characters$: Observable<Character[]>;
-
+  characters: Character[] = [];
 
 
   constructor(private router: Router, private starwarsService: StarwarsService){}
@@ -22,13 +22,17 @@ export class SearchcharactersComponent implements OnInit {
    
   }
 
-  search(term: string){
-    console.log(term)
+  search(term: string) {
+    this.starwarsService.searchCharactersByName(term).subscribe({
+      next: (characters) => {
+        this.characters = characters;
+        console.log(characters)
+      },
+    error: (error) => {
+        console.error('Erreur lors de la recherche :', error);
+      }
+  });
   }
-  
-
-
-  
 
   goTodetail(characters: Character){
     const link =['/starwars', characters.id];

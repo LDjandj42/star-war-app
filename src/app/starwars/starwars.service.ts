@@ -3,12 +3,12 @@ import { Character, ResponseCharacterList, } from './characters';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, of, map, forkJoin, filter } from 'rxjs';
 import { ResponseSpeciesList, Species } from './interface';
-
+import { NgFor } from '@angular/common';
 
 @Injectable()
 
 export class StarwarsService {
-  
+
   constructor(private http: HttpClient){}
   
   getSpeciesList(): Observable<Species[]>{
@@ -118,4 +118,13 @@ export class StarwarsService {
         return match ? parseInt(match[1], 10) : -1;
     })
   }
+  searchCharactersByName(searchTerm: string): Observable<Character[]> {
+    return this.getStarwarsList().pipe(
+      map(characters => characters.filter(character =>
+        character.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ))
+    );
+  }
+
+  
 }

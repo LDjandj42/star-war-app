@@ -56,7 +56,7 @@
         <mat-error *ngIf="characterForm.controls.homeworld.hasError('pattern')">Le format du champs est incorect</mat-error>
     </mat-form-field>
    
-    <app-custom-input formControlName="speciesName"></app-custom-input>
+    <app-custom-input formControlName="speciesName" required [touched]="touched"></app-custom-input>
     
 
     <button type="submit">

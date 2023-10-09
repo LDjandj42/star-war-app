@@ -4,9 +4,9 @@
         placeholder="Rechercher un personage"
     />
     <div class="app-search-characters__search-list" fxLayout="column">
-        <a  *ngFor="let characters of characters$ | async" 
-            [routerLink]="'/starwars/'+ characters.id">
-            {{characters.name}}
+        <a  *ngFor="let character of characters" 
+            [routerLink]="'/starwars/'+ character.id">
+            {{ character.name }}
         </a>
     </div>
 </div>

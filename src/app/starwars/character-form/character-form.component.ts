@@ -13,6 +13,7 @@ import { Species } from '../interface';
 export class CharacterFormComponent  implements OnInit{
   @Input() character: Character;
   isAddForm: boolean;
+  touched: boolean = false;
   speciesList: Species[];
   external = "";
   characterForm = this.fb.group({
@@ -86,6 +87,7 @@ export class CharacterFormComponent  implements OnInit{
     
     if(this.characterForm.invalid){
       this.characterForm.markAllAsTouched();
+      this.touched = true;
       return;
     }
     if(this.isAddForm) {

@@ -1,8 +1,8 @@
-import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { Component, forwardRef, OnInit,OnDestroy, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { StarwarsService } from '../starwars.service';
 import { Species } from '../interface';
-import { Observable, take } from 'rxjs';
+import { Observable, Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-custom-input',
@@ -12,12 +12,17 @@ import { Observable, take } from 'rxjs';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CustomInputComponent),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: CustomInputComponent
     }
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class CustomInputComponent implements ControlValueAccessor, OnInit {
+export class CustomInputComponent implements ControlValueAccessor, OnInit, Validator, OnDestroy {
   @Input() set required(value: boolean | string) {
     const required: boolean = value === false ? false : true;
     if (required) {
@@ -48,7 +53,9 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
   
   @Output()
   touch: EventEmitter<void> = new EventEmitter<void>()
+  
 
+  private _onDestroy$ = new Subject<void>();
   speciesList$: Observable<Species[]>;
   
 
@@ -61,10 +68,14 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
     this.speciesList$ = this.starwarsService.getSpeciesList()
   }
 
+  ngOnDestroy(): void {
+    this._onDestroy$.next();
+    this._onDestroy$.complete();
+  }
+
   writeValue(value: string){
     this.speciesList$.pipe(
-      take(1),
-
+      take(1)
     ).subscribe(() => this.speciesNameCtrl.setValue(value));
     
   }
@@ -75,7 +86,9 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
 
   registerOnChange(onChange: () => void): void {
     this.onChange = onChange;
-    this.speciesNameCtrl.valueChanges.subscribe((speciesName: string) =>{
+    this.speciesNameCtrl.valueChanges.pipe(
+      takeUntil(this._onDestroy$)
+    ).subscribe((speciesName: string) =>{
       this.onChange(speciesName);
     });
   }
@@ -85,12 +98,15 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
   }
 
   onOpenedChange(): void {
-    console.log("test");
     this.onTouched();
     if (!this.touched) {
       this.touch.emit();
     }
     this.changeDetectorRef.markForCheck();
+  }
+  
+  validate(control: AbstractControl<any, any>): ValidationErrors {
+    return this.speciesNameCtrl.errors;
   }
 
   public markAsTouched(): void {

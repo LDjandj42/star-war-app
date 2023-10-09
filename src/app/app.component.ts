@@ -1,5 +1,8 @@
 
-import { Component,} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+
 
 @Component({
   selector: 'app-root',
@@ -8,9 +11,16 @@ import { Component,} from '@angular/core';
   })
 
 
-export class AppComponent{
+export class AppComponent implements OnInit{
   title(title: any) {
     throw new Error('Method not implemented.');
   }
+  constructor(private store: Store) { }
+  
+  ngOnInit(): void {
+   
+  }
+
   }
   
+
