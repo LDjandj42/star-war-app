@@ -14,8 +14,8 @@ const initialState: State = {
 };
 const _charactersReducer = createReducer(
   initialState,
-  on(RootAction.loadCharacterListSuccess, (state, { ListCharacter }) => ({ ...state, characterList: ListCharacter })),
-  on(RootAction.deleteCharacterList, (state) => ({ ...state, characterList: [] })),
+  on(RootAction.loadCharacterListSuccess, (state, { ListCharacter }) => ({ ...state, charactersList: ListCharacter })),
+  on(RootAction.deleteCharacterList, (state) => ({ ...state, charactersList: [] })),
   on(RootAction.loadCharacterSuccess, (state, { character }) => ({ ...state, character: character })),
   on(RootAction.deleteCharacter, (state) => ({ ...state, character: null })),
 );

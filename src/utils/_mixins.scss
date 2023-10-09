@@ -1,0 +1,381 @@
+// BREAKPOINTS
+@mixin xs {
+  @media screen and (max-width: 599px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media screen and (min-width: 600px) and (max-width: 959px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media screen and (min-width: 960px) and (max-width: 1279px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media screen and (min-width: 1280px) and (max-width: 1919px) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media screen and (min-width: 1920px) and (max-width: 5000px) {
+    @content;
+  }
+}
+
+@mixin lt-sm {
+  @media screen and (max-width: 599px) {
+    @content;
+  }
+}
+
+@mixin lt-md {
+  @media screen and (max-width: 959px) {
+    @content;
+  }
+}
+
+@mixin lt-lg {
+  @media screen and (max-width: 1279px) {
+    @content;
+  }
+}
+
+@mixin lt-xl {
+  @media screen and (max-width: 1919px) {
+    @content;
+  }
+}
+
+@mixin gt-xs {
+  @media screen and (min-width: 600px) {
+    @content;
+  }
+}
+
+@mixin gt-sm {
+  @media screen and (min-width: 960px) {
+    @content;
+  }
+}
+
+@mixin gt-md {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin gt-lg {
+  @media screen and (min-width: 1920px) {
+    @content;
+  }
+}
+
+// SCROLLBAR
+
+@mixin jnjScrollbar {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    &-track {
+      position: absolute;
+      right: 2px;
+      width: 6px;
+      background-color: rgba(#000000, 0);
+      border-radius: 6px;
+    }
+
+    &-thumb {
+      border: 2px solid transparent;
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 12px rgba(#8895a6, 0.8);
+
+      &:hover {
+        border-radius: 10px;
+        box-shadow: inset 0 0 0 13px rgba(#8895a6, 0.9);
+      }
+    }
+  }
+}
+
+@mixin blue-banner {
+  background-color: rgba(var(--billed-rgb), 0.8);
+  font-weight: 600;
+  text-align: start;
+  padding: 0.8rem;
+}
+
+@mixin generate-one-grid-class($breakpoint, $column, $row) {
+  @if $breakpoint == '' {
+    .gr-#{$column}-#{$row} {
+      display: grid !important;
+      grid-template-columns: repeat($column, minmax(0, 1fr));
+      grid-template-rows: repeat($row, minmax(0, 1fr));
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+    .gr-#{$column}auto-#{$row} {
+      display: grid !important;
+      grid-template-columns: repeat($column, auto);
+      grid-template-rows: repeat($row, minmax(0, 1fr));
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+    .gr-#{$column}-#{$row}auto {
+      display: grid !important;
+      grid-template-columns: repeat($column, minmax(0, 1fr));
+      grid-template-rows: repeat($row, auto);
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+    .gr-#{$column}auto-#{$row}auto {
+      display: grid !important;
+      grid-template-columns: repeat($column, auto);
+      grid-template-rows: repeat($row, auto);
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+  } @else {
+    .gr-#{$breakpoint}-#{$column}-#{$row} {
+      display: grid !important;
+      grid-template-columns: repeat($column, minmax(0, 1fr)) !important;
+      grid-template-rows: repeat($row, minmax(0, 1fr)) !important;
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+    .gr-#{$breakpoint}-#{$column}auto-#{$row} {
+      display: grid !important;
+      grid-template-columns: repeat($column, auto) !important;
+      grid-template-rows: repeat($row, minmax(0, 1fr)) !important;
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+    .gr-#{$breakpoint}-#{$column}-#{$row}auto {
+      display: grid !important;
+      grid-template-columns: repeat($column, minmax(0, 1fr)) !important;
+      grid-template-rows: repeat($row, auto) !important;
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+    .gr-#{$breakpoint}auto-#{$column}-#{$row}auto {
+      display: grid !important;
+      grid-template-columns: repeat($column, auto) !important;
+      grid-template-rows: repeat($row, auto) !important;
+      box-sizing: border-box;
+      & > * {
+        box-sizing: border-box;
+      }
+    }
+  }
+}
+
+@mixin set-grid-item-column-start($breakpoint, $columnStart) {
+  @if $breakpoint == '' {
+    .cs-#{$columnStart} {
+      grid-column-start: #{$columnStart};
+    }
+  } @else {
+    .cs-#{$breakpoint}-#{$columnStart} {
+      grid-column-start: #{$columnStart};
+    }
+  }
+}
+
+@mixin set-grid-item-column-end($breakpoint, $columnEnd) {
+  @if $breakpoint == '' {
+    .ce-#{$columnEnd} {
+      grid-column-end: #{$columnEnd};
+    }
+  } @else {
+    .ce-#{$breakpoint}-#{$columnEnd} {
+      grid-column-end: #{$columnEnd};
+    }
+  }
+}
+
+@mixin set-grid-item-row-start($breakpoint, $rowStart) {
+  @if $breakpoint == '' {
+    .rs-#{$rowStart} {
+      grid-row-start: #{$rowStart};
+    }
+  } @else {
+    .rs-#{$breakpoint}-#{$rowStart} {
+      grid-row-start: #{$rowStart};
+    }
+  }
+}
+
+@mixin set-grid-item-row-end($breakpoint, $rowEnd) {
+  @if $breakpoint == '' {
+    .re-#{$rowEnd} {
+      grid-row-end: #{$rowEnd};
+    }
+  } @else {
+    .re-#{$breakpoint}-#{$rowEnd} {
+      grid-row-end: #{$rowEnd};
+    }
+  }
+}
+@mixin createWithOrHeightClass($breakpoint, $widthOrHeight) {
+  @if $breakpoint == '' {
+    .r-#{$widthOrHeight} {
+      grid-row: span #{$widthOrHeight};
+    }
+    .c-#{$widthOrHeight} {
+      grid-column: span #{$widthOrHeight};
+    }
+  } @else {
+    .r-#{$breakpoint}-#{$widthOrHeight} {
+      grid-row: span #{$widthOrHeight};
+    }
+    .c-#{$breakpoint}-#{$widthOrHeight} {
+      grid-column: span #{$widthOrHeight};
+    }
+  }
+}
+
+@mixin set-grid-item-position($breakpoint, $x) {
+  @include set-grid-item-column-start($breakpoint, $x);
+  @include set-grid-item-column-end($breakpoint, $x);
+  @include set-grid-item-row-start($breakpoint, $x);
+  @include set-grid-item-row-end($breakpoint, $x);
+  @include createWithOrHeightClass($breakpoint, $x);
+}
+
+@for $x from 1 through 10 {
+  @include set-grid-item-position('', $x);
+
+  @include xs {
+    @include set-grid-item-position('xs', $x);
+  }
+  @include sm {
+    @include set-grid-item-position('sm', $x);
+  }
+  @include md {
+    @include set-grid-item-position('md', $x);
+  }
+  @include lg {
+    @include set-grid-item-position('lg', $x);
+  }
+  @include xl {
+    @include set-grid-item-position('xl', $x);
+  }
+  @include lt-sm {
+    @include set-grid-item-position('ltsm', $x);
+  }
+  @include lt-md {
+    @include set-grid-item-position('ltmd', $x);
+  }
+  @include lt-lg {
+    @include set-grid-item-position('ltlg', $x);
+  }
+  @include gt-xs {
+    @include set-grid-item-position('gtxs', $x);
+  }
+  @include gt-sm {
+    @include set-grid-item-position('gtsm', $x);
+  }
+  @include gt-md {
+    @include set-grid-item-position('gtmd', $x);
+  }
+  @include gt-lg {
+    @include set-grid-item-position('gtlg', $x);
+  }
+}
+
+@mixin generate-grid-classes($columns, $rows) {
+  @for $i from 1 through $columns {
+    @for $j from 1 through $rows {
+      @include generate-one-grid-class('', $i, $j);
+      @include xs {
+        @include generate-one-grid-class('xs', $i, $j);
+      }
+      @include sm {
+        @include generate-one-grid-class('sm', $i, $j);
+      }
+      @include md {
+        @include generate-one-grid-class('md', $i, $j);
+      }
+      @include lg {
+        @include generate-one-grid-class('lg', $i, $j);
+      }
+      @include xl {
+        @include generate-one-grid-class('xl', $i, $j);
+      }
+      @include lt-sm {
+        @include generate-one-grid-class('ltsm', $i, $j);
+      }
+      @include lt-md {
+        @include generate-one-grid-class('ltmd', $i, $j);
+      }
+      @include lt-lg {
+        @include generate-one-grid-class('ltlg', $i, $j);
+      }
+      @include lt-xl {
+        @include generate-one-grid-class('ltxl', $i, $j);
+      }
+      @include gt-xs {
+        @include generate-one-grid-class('gtxs', $i, $j);
+      }
+      @include gt-sm {
+        @include generate-one-grid-class('gtsm', $i, $j);
+      }
+      @include gt-md {
+        @include generate-one-grid-class('gtmd', $i, $j);
+      }
+      @include gt-lg {
+        @include generate-one-grid-class('gtlg', $i, $j);
+      }
+    }
+  }
+}
+
+@mixin generate-grid-gap-classes() {
+  @for $gap from 1 through 10 {
+    .gr-gap-#{$gap*4} {
+      gap: $gap * 4px;
+    }
+    .gr-r-gap-#{$gap*4} {
+      grid-row-gap: $gap * 4px;
+    }
+    .gr-c-gap-#{$gap*4} {
+      grid-column-gap: $gap * 4px;
+    }
+    .gr-gap-#{$gap*4}auto {
+      gap: $gap * 4px;
+      grid-auto-flow: column;
+    }
+  }
+}
+
+@mixin generate-gap-classes() {
+  @for $gap from 1 through 10 {
+    .gap-#{$gap*4} {
+      gap: $gap * 4px;
+    }
+  }
+}
+
+@function toRGBtext($color) {
+  @return red($color) + ', ' + green($color) + ', ' + blue($color);
+}
