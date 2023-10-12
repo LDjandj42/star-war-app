@@ -1,7 +1,7 @@
-import { Character } from '../characters';
-import { Observable,Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { Character } from '../characters';
 import { StarwarsService } from '../starwars.service';
 
 @Component({
@@ -12,14 +12,15 @@ import { StarwarsService } from '../starwars.service';
 })
 export class SearchcharactersComponent implements OnInit {
   searchTerms= new Subject<string>();
-  characters$: Observable<Character[]>;
   characters: Character[] = [];
+  characters$: Observable<Character[]>;
+
+  constructor(private router: Router, private starwarsService: StarwarsService) { }
 
 
-  constructor(private router: Router, private starwarsService: StarwarsService){}
 
   ngOnInit(): void {
-   
+    
   }
 
   search(term: string) {

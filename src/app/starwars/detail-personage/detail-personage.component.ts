@@ -2,10 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, take } from 'rxjs';
-import { deleteCharacter, loadCharacter } from 'src/app/state-characters/actions';
+import { deleteCharacter, loadCharacter, updateCharacterList } from 'src/app/state-characters/actions';
 import { getcharcter } from 'src/app/state-characters/characters-selectors';
 import { Character } from '../characters';
-import { StarwarsService } from './../starwars.service';
 
 
 @Component({
@@ -19,7 +18,7 @@ export class DetailPersonageComponent implements OnInit,OnDestroy {
 
   characters: Character;
   
-  constructor (private route: ActivatedRoute, private router: Router, private charactersService: StarwarsService, private store: Store){}
+  constructor (private route: ActivatedRoute, private router: Router, private store: Store){}
   ngOnDestroy(): void {
     this.store.dispatch(deleteCharacter());
   }
@@ -48,9 +47,9 @@ export class DetailPersonageComponent implements OnInit,OnDestroy {
     goToStarWarsList(){
       this.router.navigate(['/starwars']);
     }
-    deletecharacter(character: Character){
-      this.charactersService.deleteCharacterById(character.id)
-      .subscribe(()=> this.goToStarWarsList());
+    deletecharacter(character: Character) {
+      this.store.dispatch(updateCharacterList({ character }));
+      this.router.navigate(['/starwars']);
     }
     goToEditcharacter(character: Character) {
       this.router.navigate(['/edit/starwars', character.id]);

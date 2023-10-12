@@ -18,7 +18,6 @@ import { AppSpeciesEffects } from './state-species/species-effects';
 import { speciesReducer } from './state-species/species-reducer';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

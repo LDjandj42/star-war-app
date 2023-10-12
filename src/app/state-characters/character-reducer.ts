@@ -14,10 +14,20 @@ const initialState: State = {
 };
 const _charactersReducer = createReducer(
   initialState,
-  on(RootAction.loadCharacterListSuccess, (state, { ListCharacter }) => ({ ...state, charactersList: ListCharacter })),
-  on(RootAction.deleteCharacterList, (state) => ({ ...state, charactersList: [] })),
-  on(RootAction.loadCharacterSuccess, (state, { character }) => ({ ...state, character: character })),
-  on(RootAction.deleteCharacter, (state) => ({ ...state, character: null })),
+  on(RootAction.loadCharacterListSuccess, (state, { ListCharacter } ):State => ({ ...state, charactersList: ListCharacter })),
+  on(RootAction.updateCharacterList, (state, { character }):State => {
+    const updatedCharacters = state.charactersList.filter(c => c.id !== character.id);
+    return { ...state, charactersList: updatedCharacters };
+  }),
+  on(RootAction.deleteCharacterList, (state):State => ({ ...state, charactersList: [] })),
+  on(RootAction.loadCharacterSuccess, (state, { character }):State => ({ ...state, character: character })),
+  on(RootAction.updateCharacter, (state, { updatedCharacter }):State => {
+    const updatedList = state.charactersList.map(character =>
+      character.id === updatedCharacter.id ? updatedCharacter : character
+    );
+    return { ...state, charactersList: updatedList };
+  }),
+  on(RootAction.deleteCharacter, (state):State => ({ ...state, character: null })),
 );
   export function charactersReducer(state: State | undefined, action: any) {
     return _charactersReducer(state, action);

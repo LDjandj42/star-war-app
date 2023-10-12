@@ -17,6 +17,14 @@ export const loadCharacterListFailure = createAction(
 export const deleteCharacterList = createAction(
   '[Character API] delete character List',
 );
+export const updateCharacterList = createAction(
+  '[Character API] update character list',
+  props<{ character: Character }>()
+);
+
+
+//-----------------------------------------
+
 
 export const loadCharacter = createAction(
   '[Character API] load character',
@@ -32,4 +40,8 @@ export const loadCharacterFailure = createAction(
 );
 export const deleteCharacter = createAction(
   '[Character API] delete character',
+);
+export const updateCharacter = createAction(
+  '[Character API] update character',
+  props<{ updatedCharacter: Character }>()
 );

@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Character } from '../characters';
-import { StarwarsService } from '../starwars.service';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { updateCharacter } from 'src/app/state-characters/actions';
+import { Character } from '../characters';
 import { Species } from '../interface';
+import { StarwarsService } from '../starwars.service';
 
 @Component({
   selector: 'app-character-form',
@@ -51,12 +53,14 @@ export class CharacterFormComponent  implements OnInit{
     ]],
     speciesName:[''],
   });
+  
 
 
   constructor(
     private starwarsService: StarwarsService,
     private router: Router,
     private fb: FormBuilder,
+    private store: Store,
   ){}
 
   ngOnInit(): void {
@@ -80,7 +84,7 @@ export class CharacterFormComponent  implements OnInit{
       eye_color: this.characterForm.value.eyeColor,
       birth_year: this.characterForm.value.birthYear,
       homeworld: this.characterForm.value.homeworld,
-      speciesName:this.characterForm.value.speciesName,
+      speciesName: this.characterForm.value.speciesName,
     };
 
 
@@ -95,8 +99,8 @@ export class CharacterFormComponent  implements OnInit{
       this.starwarsService.addcharacters(characterToEdit)
         .subscribe((character: Character) => this.router.navigate(['/starwars', character.id]));
     } else {
-      this.starwarsService.updatecharacter(characterToEdit)
-        .subscribe(() => this.router.navigate(['/starwars', this.character.id]));
+      this.store.dispatch(updateCharacter({ updatedCharacter: characterToEdit }));
+      this.router.navigateByUrl(`/starwars/${this.character.id}`);
     }
   }
   

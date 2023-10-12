@@ -3,9 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, map, withLatestFrom } from 'rxjs';
-import { loadCharacterList } from 'src/app/state-characters/actions';
 import { getCharctersList } from 'src/app/state-characters/characters-selectors';
-import { loadSpeciesList } from 'src/app/state-species/actions';
 import { getSpeciesList } from 'src/app/state-species/species-selectors';
 import { Character } from '../characters';
 import { Species } from '../interface';
@@ -24,10 +22,11 @@ export class ListPersonageComponent implements OnInit {
   charactersList$: Observable<Character[]>
   speciesList$: Observable<Species[]>
   constructor(private router: Router, private store: Store ){}
+  
+
+
 
   ngOnInit() {
-    this.store.dispatch(loadSpeciesList());
-    this.store.dispatch(loadCharacterList());
     this.charactersList$ = this.store.select(getCharctersList).pipe(
       withLatestFrom(this.store.select(getSpeciesList)),
       map((([characterList, speciesList]: [Character[],Species[]]):Character[] => {
@@ -57,6 +56,13 @@ export class ListPersonageComponent implements OnInit {
 }
   onCharacterSelected(characterId: number) {
     this.router.navigateByUrl(`/starwars/${characterId}`);
+  }
+  
+ 
+
+  goToRandomCharacter() {
+    const randomNumber= Math.floor(Math.random() * 82)
+    this.router.navigateByUrl(`/starwars/${randomNumber}`);
   }
 
 }
